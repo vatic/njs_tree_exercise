@@ -1,6 +1,6 @@
 const Tree = require('./tree_data_mock.js');
 
-function incValue(object_id, value_increment) {
+function incValue(node_id, value_increment) {
     // TODO. Code the actual excercise here, please...
 }
 
