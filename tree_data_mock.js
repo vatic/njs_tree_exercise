@@ -4,7 +4,7 @@ module.exports = [
         id: 1,
         // Id of parent/ascendant object
         parent_id: 9000,
-        // Number we are actually calculating. If not exists = 0
+        // Number we are actually calculating. If not exists, empty or invalid = 0
         value: 0,
     },
     {
@@ -15,7 +15,7 @@ module.exports = [
     {
         id: 3,
         parent_id: 2,
-        value: -3,
+        value: undefined,
     },
     {
         id: 4,
@@ -25,6 +25,7 @@ module.exports = [
     {
         id: 303,
         parent_id: 3,
+        value: "303",
     },
     {
         iD: 404,
@@ -42,5 +43,6 @@ module.exports = [
         // This is the parent if no 'parent_id' defined OR object with 'parent_id' is not exists. Only one 'default_parent' per tree.
         default_parent: true,
         id: 9000,
+        value: "9 thousands",
     },
 ];
