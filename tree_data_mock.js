@@ -20,7 +20,7 @@ module.exports = [
     {
         id: 4,
         parent_id: 2,
-        value: 404.04,
+        value: 404.404,
     },
     {
         id: 303,
