@@ -8,14 +8,14 @@ module.exports = [
         value: 0,
     },
     {
-        id: 2,
-        parent_id: 1,
-        value: 22,
-    },
-    {
         id: 3,
         parent_id: 2,
         value: undefined,
+    },
+    {
+        id: 2,
+        parent_id: 1,
+        value: 22,
     },
     {
         id: 4,
@@ -23,17 +23,17 @@ module.exports = [
         value: 404.404,
     },
     {
-        id: 303,
-        parent_id: 3,
-        value: "303",
+        id: 505,
+        parent_id: 5,
+        value: .055,
     },
     {
         iD: 404,
     },
     {
-        id: 505,
-        parent_id: 5,
-        value: .055,
+        id: 303,
+        parent_id: 3,
+        value: "303",
     },
     {
         id: 1701,
