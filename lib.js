@@ -1,8 +1,4 @@
-const Tree = require('./tree_data_mock.js');
-
-const compose = (f, g) => (...args) => f(g(...args))
-
-const doJob = (...fns) => fns.reduce(compose)
+// This functions are pure and referential transparent.
 
 function clearTree(tree) {
   return tree
@@ -17,10 +13,23 @@ function clearTree(tree) {
 }
 
 function findAncestors(tree, nodeId) {
-  const node = tree.find((e) => e.id === nodeId)
+  const ids = [nodeId]
+  return (function findA(tree, nodeId) {
+    const parentId = tree.find((e) => e.id === nodeId)?.parent_id
+    if (parentId) {
+      ids.push(parentId)
+      findA(tree, parentId)
+    }
+    return ids
+  })(tree, nodeId)
 }
 
-const incValueInNode = (tree) => (nodeId, valueInc = 0) => {
+function findLeafs(tree, nodeId) {
+  const parentId = tree.find((e) => e.id === nodeId)?.parent_id
+  return tree.filter((e) => e.parent_id === parentId && e.id !== nodeId)
+}
+
+function incValueInNode(tree, nodeId, valueInc = 0) {
   if (!(typeof valueInc === 'number' && Number.isFinite(valueInc))) {
     valueInc = 0
   }
@@ -30,9 +39,23 @@ const incValueInNode = (tree) => (nodeId, valueInc = 0) => {
   return [...tree.slice(0, index), newNode, ...tree.slice(index + 1)]
 }
 
-console.log(Tree);
-console.log(doJob(incValueInNode, clearTree)(Tree)(505, 22.333333));
+// Если у "брата" value = 0, то увеличиваем на valueInc/10
+function doIncrement(tree, parendIds, leafs, valueInc) {
+  let localTree = Array.from(tree)
+  parendIds.forEach((id, index) => {
+    localTree = incValueInNode(localTree, id, valueInc / (Math.pow(4, index)))
+  })
+  leafs.forEach((node) => {
+    let value = valueInc / 10 > node.value && node.value !== 0 ? node.value : valueInc / 10
+    localTree = incValueInNode(localTree, node.id, value)
+  })
 
+  return localTree
+}
 
-
-
+module.exports = {
+  clearTree,
+  doIncrement,
+  findAncestors,
+  findLeafs
+}
